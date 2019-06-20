@@ -1,23 +1,42 @@
+import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE } from '../actions'
 import { FETCH_FRIENDS, FETCH_SUCCESS, FETCH_FAILURE } from '../actions'
 
 const initialState = {
   friends: [],
-  isDeleting: false,
+  isLoggingIn: false,
   isFetching: false,
-  isLoggedIn: false,
+  error: null,
+  /*
+  isDeleting: false,
   isSaving: false,
   isUpdating: false,
-  error: null,
+  */
 }
 
-export const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case LOGIN_START:
+      return {
+        ...state,
+        isLoggingIn: true,
+        error: null
+      }
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        isLoggingIn: false,
+      }
+    case LOGIN_FAILURE:
+      return {
+        ...state,
+        isLoggingIn: false,
+        error: action.payload
+      }
     case FETCH_FRIENDS:
       return {
         ...state,
         isFetching: true,
-        isLoggedIn: true,
-        error: null,
+        error: '',
       }
     case FETCH_SUCCESS:
       return {
@@ -35,3 +54,5 @@ export const reducer = (state = initialState, action) => {
       return state
   }
 }
+
+export default reducer;

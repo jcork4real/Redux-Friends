@@ -1,4 +1,4 @@
-import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE } from '../actions';
+import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from '../actions';
 import { FETCH_FRIENDS, FETCH_SUCCESS, FETCH_FAILURE } from '../actions';
 import { ADD_FRIEND_START, ADD_FRIEND_SUCCESS, ADD_FRIEND_FAILURE } from '../actions';
 import { DELETE_FRIEND_START, DELETE_FRIEND_SUCCESS, DELETE_FRIEND_FAILURE } from '../actions';
@@ -12,6 +12,7 @@ const initialState = {
   isAdding: false,
   isDeleting: false,
   isUpdating: false,
+  isLoggedIn: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -26,12 +27,24 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isLoggingIn: false,
+        isLoggedIn: true,
       }
     case LOGIN_FAILURE:
       return {
         ...state,
         isLoggingIn: false,
         error: action.payload
+      }
+    case LOGOUT:
+      return {
+        friends: [],
+        isLoggingIn: false,
+        isFetching: false,
+        error: null,
+        isAdding: false,
+        isDeleting: false,
+        isUpdating: false,
+        isLoggedIn: false,
       }
     case FETCH_FRIENDS:
       return {

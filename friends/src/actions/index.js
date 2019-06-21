@@ -9,9 +9,12 @@ export const login = (credentials) => (dispatch) => {
   dispatch({
     type: LOGIN_START
   })
-  axios.post('http://localhost:5000/api/login', credentials)
+  return axios.post('http://localhost:5000/api/login', credentials)
     .then(response => {
       console.log('login success: ', response)
+      dispatch({
+        type: LOGIN_SUCCESS,
+      })
       localStorage.setItem('token', response.data.payload);
     })
     .catch(error => {
@@ -21,6 +24,14 @@ export const login = (credentials) => (dispatch) => {
         payload: error.response.data.error
       })
     })
+}
+
+export const LOGOUT = 'LOGOUT';
+
+export const logout = () => {
+  return ({
+    type: LOGOUT
+  })
 }
 
 

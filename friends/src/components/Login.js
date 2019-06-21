@@ -24,7 +24,11 @@ class Login extends React.Component {
 
   loginHandler = (event) => {
     event.preventDefault();
-    this.props.login(this.state.credentials);
+    this.props.login(this.state.credentials).then(() => {
+      if (!this.props.error) {
+        this.props.history.push("/dashboard");
+      }
+    })
     this.setState({
       credentials: {
         username: '',
@@ -51,7 +55,7 @@ class Login extends React.Component {
 
 const mapStateToProps = (state) => ({
   error: state.error,
-  isLoggingIn: state.isLoggingIn
+  isLoggingIn: state.isLoggingIn,
 })
 
 export default connect(mapStateToProps, { login })(Login);

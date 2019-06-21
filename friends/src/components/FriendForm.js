@@ -56,9 +56,9 @@ class FriendForm extends React.Component {
     return (
       <div>
         <form onSubmit={this.submitHandler}>
-          <input type='text' name='name' value={this.state.input.name} onChange={this.inputHandler} required />
-          <input type='number' name='age' value={this.state.input.age} onChange={this.inputHandler} required />
-          <input type='email' name='email' value={this.state.input.email} onChange={this.inputHandler} required />
+          <input type='text' placeholder='name' name='name' value={this.state.input.name} onChange={this.inputHandler} required />
+          <input type='number' placeholder='age' name='age' value={this.state.input.age} onChange={this.inputHandler} required />
+          <input type='email' placeholder='email' name='email' value={this.state.input.email} onChange={this.inputHandler} required />
           <button>{this.props.activeFriend ? 'Edit friend' : 'Add friend'}</button>
         </form>
         {this.props.error && <div>{this.props.error}</div>}
